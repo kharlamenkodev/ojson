@@ -20,7 +20,7 @@ json data = {
 ojson::BasicNode root_node(data);
 ```
 
-Or you could write shorter:
+or you could write shorter:
 
 ```cpp
 #include <basic_node.hpp>
@@ -30,7 +30,7 @@ ojson::BasicNode root_node({
     {"age", 24}
 });
 ```
-And for example print it:
+and for example print it:
 
 ```cpp
 std::cout << root_node.content() << std::endl;
