@@ -17,6 +17,10 @@ public:
     : BasicNode(nlohmann::json::basic_json::to_msgpack(json))
     {}
 
+    explicit BasicNode(nlohmann::json::initializer_list_t json_list)
+    : BasicNode(nlohmann::json::basic_json::to_msgpack(nlohmann::json(json_list)))
+    {}
+
     explicit BasicNode(const std::vector<uint8_t>& bytes)
     : Node()
     , _bytes{bytes}
