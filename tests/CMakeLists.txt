@@ -9,7 +9,8 @@ add_executable(${BASIC_NODE_TESTS}
                 node_as_array_tests.cpp
                 node_as_string_tests.cpp
                 node_as_double_tests.cpp
-                node_as_integer_tests.cpp)
+                node_as_integer_tests.cpp
+                node_as_boolean_tests.cpp)
 
 target_link_libraries(
     ${BASIC_NODE_TESTS}
