@@ -47,6 +47,16 @@ TEST(basic_node_tests, json_with_float_value_must_contain_valid_content)
     EXPECT_EQ(node.content(), "{\"key\":1.1}");
 }
 
+TEST(basic_node_tests, json_with_boolean_values_must_contain_valid_content)
+{
+    ojson::BasicNode node({
+        {"positive", true},
+        {"negative", false}
+    });
+
+    EXPECT_EQ(node.content(), "{\"negative\":false,\"positive\":true}");
+}
+
 TEST(basic_node_tests, json_with_array_of_strings_must_contain_valid_content)
 {
     ojson::BasicNode node({
@@ -72,6 +82,15 @@ TEST(basic_node_tests, json_with_array_of_doubles_must_contain_valid_content)
     });
 
     EXPECT_EQ(node.content(), "{\"key\":[0.4,1.4,2.4,3.4,4.4]}");
+}
+
+TEST(basic_node_tests, json_with_array_of_booleans_must_contain_valid_content)
+{
+    ojson::BasicNode node({
+        {"key", {false, true, false, true, true}}
+    });
+
+    EXPECT_EQ(node.content(), "{\"key\":[false,true,false,true,true]}");
 }
 
 TEST(basic_node_tests, json_with_array_of_arrays_must_contain_valid_content)
