@@ -1,7 +1,5 @@
 find_package(GTest REQUIRED)
 
-enable_testing()
-
 set(BASIC_NODE_TESTS basic_node_tests)
 
 add_executable(${BASIC_NODE_TESTS}
@@ -18,3 +16,5 @@ target_link_libraries(
 )
 
 target_include_directories(${BASIC_NODE_TESTS} PUBLIC ${PROJECT_SOURCE_DIR}/include)
+
+add_test(${BASIC_NODE_TESTS} ${BASIC_NODE_TESTS})
