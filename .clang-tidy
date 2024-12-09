@@ -1,0 +1,112 @@
+# Configure clang-tidy for this project.
+
+# Here is an explanation for why some of the checks are disabled:
+#
+#  -google-readability-namespace-comments: the *_CLIENT_NS is a macro, and
+#      clang-tidy fails to match it against the initial value.
+#      (закрывающий комментарий для namespace, не думаю, что для этого нужна проверка при настроенном clang-format)
+#
+#  -modernize-use-trailing-return-type: clang-tidy recommends using
+#      `auto Foo() -> std::string { return ...; }`, we think the code is less
+#      readable in this form.
+#
+#  -performance-avoid-endl: we would like to turn this on, but there are too
+#      many legitimate uses in our samples.
+#
+#  -performance-enum-size: Smaller enums may or not may be faster, it depends on
+#      the architechture. If data size was a consideration, we might decide to
+#      enable the warnings.
+#
+#  -readability-redundant-declaration: A friend declaration inside a class
+#      counts as a declaration, so if we also declare that friend outside the
+#      class in order to document it as part of the public API, that will
+#      trigger a redundant declaration warning from this check.
+#
+#  -readability-avoid-return-with-void-value: We believe this is idiomatic
+#    and saves typing, and the intent is obvious.
+#    (находит места где в void функции в return вызывается другая функция с void возвратом)
+#
+#  -readability-function-cognitive-complexity: too many false positives with
+#      clang-tidy-12. We need to disable this check in macros, and that setting
+#      only appears in clang-tidy-13.
+#      (проверяет сложность "понимания" функции, по факту подсчитывает число if/else циклов и т.д., требует настройки)
+#
+#  -readability-convert-member-functions-to-static: (находит нестатический метод класса который можно сделать
+#      статическим т.к он не использует this)
+#
+#  -bugprone-easily-swappable-parameters: too many false positives.
+#
+#  -bugprone-implicit-widening-of-multiplication-result: too many false positives.
+#     Almost any expression of the form `2 * variable` or `long x = a_int * b_int;`
+#     generates an error.
+
+Checks: >
+  -*,
+  abseil-*,
+  bugprone-*,
+  google-*,
+  misc-*,
+  modernize-*,
+  clang-diagnostic-* 
+  clang-analyzer-*, 
+  cppcoreguidelines-*, 
+  performance-*,
+  portability-*,
+  readability-*,
+  -google-readability-namespace-comments,
+  -modernize-use-trailing-return-type,
+  -performance-avoid-endl,
+  -performance-enum-size,
+  -readability-identifier-length,
+  -readability-named-parameter,
+  -readability-redundant-declaration,
+  -readability-avoid-return-with-void-value,
+  -readability-function-cognitive-complexity,
+  -readability-convert-member-functions-to-static
+  -bugprone-easily-swappable-parameters,
+  -bugprone-inc-dec-in-conditions,
+  -bugprone-implicit-widening-of-multiplication-result,
+
+WarningsAsErrors: true
+
+CheckOptions:
+  - key:             readability-identifier-naming.ClassCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.MethodCase
+    value:           camelBack
+  - key:             readability-identifier-naming.PublicMemberCase
+    value:           lower_case
+  - key:             readability-identifier-naming.PrivateMemberCase
+    value:           lower_case
+  - key:             readability-identifier-naming.PublicMemberPrefix
+    value:           ''
+  - key:             readability-identifier-naming.PrivateMemberPrefix
+    value:           '_'
+  - key:             readability-identifier-naming.EnumCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.EnumConstantCase
+    value:           UPPER_CASE
+  - key:             readability-identifier-naming.StructCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.FunctionCase
+    value:           camelBack
+  - key:             readability-identifier-naming.GlobalConstantCase
+    value:           UPPER_CASE
+  - key:             readability-identifier-naming.StaticConstantCase
+    value:           UPPER_CASE
+  - key:             readability-identifier-naming.StaticVariableCase
+    value:           lower_case
+  - key:             readability-identifier-naming.MacroDefinitionCase
+    value:           UPPER_CASE
+  - key:             readability-identifier-naming.NamespaceCase
+    value:           lower_case
+  - key:             readability-identifier-naming.ParameterCase
+    value:           lower_case
+  - key:             readability-identifier-naming.TypeAliasCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.TypedefCase
+    value:           CamelCase
+  - key:             readability-identifier-naming.VariableCase
+    value:           lower_case
+  - key:             readability-identifier-naming.IgnoreMainLikeFunctions
+    value:           1
