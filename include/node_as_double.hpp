@@ -13,15 +13,25 @@ namespace ojson {
 class NodeAsDouble final : public Node
 {
 public:
-    explicit NodeAsDouble(const Node &node) : _origin{node}
+    explicit NodeAsDouble(const Node& node)
+        : _origin{node}
     {}
 
-    std::string content() const override { return _origin.content(); }
-    const std::vector<uint8_t>& bytes() const override { return _origin.bytes(); }
-    double value() const { return nlohmann::json::from_msgpack(_origin.bytes()).get<double>(); };
+    std::string content() const override
+    {
+        return _origin.content();
+    }
+    const std::vector<uint8_t>& bytes() const override
+    {
+        return _origin.bytes();
+    }
+    double value() const
+    {
+        return nlohmann::json::from_msgpack(_origin.bytes()).get<double>();
+    };
 
 private:
     const Node& _origin;
 };
 
-} // namespace ojson
+}  // namespace ojson
