@@ -7,5 +7,6 @@ set(CMAKE_CXX_STANDARD 20)
 find_package(nlohmann_json 3.2.0 REQUIRED)
 
 if (BUILD_TESTS)
+    enable_testing()
     add_subdirectory(tests)
 endif()
