@@ -28,7 +28,7 @@ jobs:
       run: |
           sudo apt-get -y update
           sudo apt-get -y install nlohmann-json3-dev
-          cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS
+          cmake -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DBUILD_TESTS:BOOL=ON
 
     - name: Build
       # Build your program with the given configuration
